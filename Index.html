@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lutfiana Dahlan — Operations & Research VA</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --black:#0d0d0d;
+    --white:#f5f2ee;
+    --cream:#ede9e3;
+    --accent:#c8a96e;
+    --accent-dark:#a8843e;
+    --muted:#7a7570;
+    --card-bg:#1a1a18;
+    --serif:'Playfair Display',Georgia,serif;
+    --sans:'DM Sans',sans-serif;
+  }
+  html{scroll-behavior:smooth}
+  body{background:var(--black);color:var(--white);font-family:var(--sans);font-weight:300;line-height:1.7;overflow-x:hidden}
+
+  /* NAV */
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.5rem 4rem;mix-blend-mode:normal;background:rgba(13,13,13,0.85);backdrop-filter:blur(12px);border-bottom:1px solid rgba(200,169,110,0.15)}
+  .nav-logo{font-family:var(--serif);font-size:1.1rem;letter-spacing:0.05em;color:var(--accent)}
+  .nav-links{display:flex;gap:2.5rem;list-style:none}
+  .nav-links a{color:var(--white);text-decoration:none;font-size:0.8rem;letter-spacing:0.12em;text-transform:uppercase;opacity:0.7;transition:opacity 0.2s}
+  .nav-links a:hover{opacity:1;color:var(--accent)}
+
+  /* HERO */
+  .hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:6rem 4rem 4rem;gap:4rem;position:relative;overflow:hidden}
+  .hero::before{content:'';position:absolute;top:-20%;right:-10%;width:60%;height:120%;background:radial-gradient(ellipse at center,rgba(200,169,110,0.06) 0%,transparent 70%);pointer-events:none}
+  .hero-eyebrow{font-size:0.72rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--accent);margin-bottom:1.5rem;display:flex;align-items:center;gap:1rem}
+  .hero-eyebrow::before{content:'';display:inline-block;width:2rem;height:1px;background:var(--accent)}
+  .hero-name{font-family:var(--serif);font-size:clamp(3rem,6vw,5.5rem);line-height:1.05;margin-bottom:1rem}
+  .hero-name em{font-style:italic;color:var(--accent)}
+  .hero-title{font-size:1rem;color:var(--muted);margin-bottom:2rem;max-width:32ch;line-height:1.8}
+  .hero-tags{display:flex;flex-wrap:wrap;gap:0.6rem;margin-bottom:3rem}
+  .tag{border:1px solid rgba(200,169,110,0.35);color:var(--accent);font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.4rem 0.9rem;border-radius:100px}
+  .hero-cta{display:inline-flex;align-items:center;gap:0.75rem;background:var(--accent);color:var(--black);font-size:0.8rem;letter-spacing:0.12em;text-transform:uppercase;font-weight:500;padding:1rem 2rem;text-decoration:none;transition:background 0.2s}
+  .hero-cta:hover{background:var(--accent-dark)}
+  .hero-cta-arrow{font-size:1.1rem;transition:transform 0.2s}
+  .hero-cta:hover .hero-cta-arrow{transform:translateX(4px)}
+
+  .hero-right{position:relative}
+  .hero-photo-frame{position:relative;background:var(--card-bg);border:1px solid rgba(200,169,110,0.2);overflow:hidden;aspect-ratio:3/4;max-height:75vh}
+  .hero-photo-frame img{width:100%;height:100%;object-fit:cover;opacity:0.9;filter:grayscale(20%)}
+  .hero-photo-overlay{position:absolute;bottom:0;left:0;right:0;padding:2rem;background:linear-gradient(to top,rgba(13,13,13,0.95) 0%,transparent 100%)}
+  .hero-stat{font-family:var(--serif);font-size:2.5rem;color:var(--accent)}
+  .hero-stat-label{font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted)}
+
+  .hero-stats-row{display:flex;gap:2rem;margin-top:0.5rem}
+  .hero-stat-item{text-align:center}
+
+  /* SECTION COMMON */
+  section{padding:6rem 4rem}
+  .section-label{font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--accent);margin-bottom:3rem;display:flex;align-items:center;gap:1rem}
+  .section-label::after{content:'';flex:1;height:1px;background:rgba(200,169,110,0.2)}
+  .section-heading{font-family:var(--serif);font-size:clamp(2rem,4vw,3.5rem);line-height:1.1;margin-bottom:1.5rem}
+
+  /* ABOUT */
+  .about{background:var(--card-bg);border-top:1px solid rgba(200,169,110,0.15);border-bottom:1px solid rgba(200,169,110,0.15)}
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+  .about-text{font-size:1rem;color:rgba(245,242,238,0.8);line-height:1.9}
+  .about-text p+p{margin-top:1.2rem}
+  .about-highlight{font-family:var(--serif);font-size:1.5rem;font-style:italic;color:var(--accent);border-left:2px solid var(--accent);padding-left:1.5rem;margin:2rem 0;line-height:1.5}
+
+  .edu-item{padding:1.2rem 0;border-bottom:1px solid rgba(245,242,238,0.08)}
+  .edu-item:last-child{border-bottom:none}
+  .edu-school{font-weight:500;color:var(--white);margin-bottom:0.2rem}
+  .edu-degree{font-size:0.85rem;color:var(--muted)}
+  .edu-year{font-size:0.75rem;color:var(--accent);letter-spacing:0.1em}
+
+  /* SKILLS */
+  .skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem;margin-top:3rem}
+  .skill-card{background:var(--card-bg);border:1px solid rgba(200,169,110,0.12);padding:2rem;transition:border-color 0.3s}
+  .skill-card:hover{border-color:rgba(200,169,110,0.45)}
+  .skill-icon{font-size:1.5rem;margin-bottom:1rem;color:var(--accent)}
+  .skill-title{font-family:var(--serif);font-size:1.1rem;margin-bottom:0.75rem}
+  .skill-items{list-style:none;font-size:0.82rem;color:var(--muted);line-height:2}
+
+  /* TOOLS */
+  .tools-section{background:var(--card-bg);border-top:1px solid rgba(200,169,110,0.15)}
+  .tools-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0;margin-top:3rem;border:1px solid rgba(200,169,110,0.12)}
+  .tool-category{padding:1.75rem 2rem;border-right:1px solid rgba(200,169,110,0.12);border-bottom:1px solid rgba(200,169,110,0.12)}
+  .tool-cat-label{font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:0.75rem}
+  .tool-cat-items{font-size:0.82rem;color:rgba(245,242,238,0.75);line-height:2}
+
+  /* WORK / PROJECTS */
+  .projects{background:var(--black)}
+  .project-list{display:flex;flex-direction:column;gap:0;border-top:1px solid rgba(200,169,110,0.15)}
+  .project-item{display:grid;grid-template-columns:auto 1fr auto;align-items:start;gap:2rem;padding:3rem 0;border-bottom:1px solid rgba(200,169,110,0.12);cursor:default;transition:padding 0.3s}
+  .project-item:hover{padding-left:1.5rem}
+  .project-num{font-family:var(--serif);font-size:1rem;color:var(--accent);opacity:0.6;min-width:3rem}
+  .project-title{font-family:var(--serif);font-size:1.5rem;margin-bottom:0.5rem;transition:color 0.2s}
+  .project-item:hover .project-title{color:var(--accent)}
+  .project-desc{font-size:0.88rem;color:var(--muted);max-width:55ch;line-height:1.8}
+  .project-outcome{font-size:0.82rem;color:var(--accent);margin-top:0.75rem;font-style:italic}
+  .project-tags{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1rem}
+  .ptag{font-size:0.7rem;color:var(--muted);border:1px solid rgba(122,117,112,0.4);padding:0.25rem 0.6rem;border-radius:100px;letter-spacing:0.05em}
+  .project-arrow{color:var(--accent);opacity:0;font-size:1.5rem;transition:opacity 0.2s;align-self:center}
+  .project-item:hover .project-arrow{opacity:1}
+
+  /* CONTACT */
+  .contact{background:var(--cream);color:var(--black);text-align:center;padding:8rem 4rem}
+  .contact .section-label{color:var(--accent-dark);justify-content:center}
+  .contact .section-label::after,.contact .section-label::before{content:'';width:3rem;height:1px;background:rgba(168,132,62,0.4);display:inline-block}
+  .contact .section-heading{color:var(--black)}
+  .contact-sub{color:#7a7570;margin-bottom:3rem;font-size:1rem}
+  .contact-links{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;margin-bottom:4rem}
+  .contact-link{display:flex;align-items:center;gap:0.6rem;color:var(--black);text-decoration:none;font-size:0.85rem;border-bottom:1px solid rgba(0,0,0,0.15);padding-bottom:0.25rem;transition:color 0.2s,border-color 0.2s}
+  .contact-link:hover{color:var(--accent-dark);border-color:var(--accent-dark)}
+  .contact-link-icon{font-size:1rem;opacity:0.6}
+  .contact-cta{display:inline-flex;align-items:center;gap:0.75rem;background:var(--black);color:var(--white);font-size:0.8rem;letter-spacing:0.12em;text-transform:uppercase;font-weight:500;padding:1.1rem 2.5rem;text-decoration:none;transition:background 0.2s}
+  .contact-cta:hover{background:#333}
+
+  /* FOOTER */
+  footer{background:var(--black);border-top:1px solid rgba(200,169,110,0.1);padding:2rem 4rem;display:flex;justify-content:space-between;align-items:center}
+  .footer-copy{font-size:0.75rem;color:var(--muted)}
+  .footer-logo{font-family:var(--serif);color:var(--accent);font-size:0.95rem}
+
+  /* ANIMATIONS */
+  @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+  .hero-eyebrow{animation:fadeUp 0.8s ease both}
+  .hero-name{animation:fadeUp 0.8s 0.15s ease both}
+  .hero-title{animation:fadeUp 0.8s 0.25s ease both}
+  .hero-tags{animation:fadeUp 0.8s 0.35s ease both}
+  .hero-cta{animation:fadeUp 0.8s 0.45s ease both}
+
+  /* RESPONSIVE */
+  @media(max-width:900px){
+    nav{padding:1.2rem 2rem}
+    .nav-links{gap:1.5rem}
+    .hero,.about-grid{grid-template-columns:1fr;gap:3rem;padding:5rem 2rem 3rem}
+    .hero-right{display:none}
+    section{padding:4rem 2rem}
+    .tools-grid{grid-template-columns:1fr 1fr}
+    .project-item{grid-template-columns:auto 1fr;gap:1rem}
+    .project-arrow{display:none}
+    footer{flex-direction:column;gap:1rem;text-align:center}
+    .contact{padding:5rem 2rem}
+    .contact-links{flex-direction:column;align-items:center;gap:1.5rem}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Lutfiana Dahlan</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Operations & Research Virtual Assistant</div>
+    <h1 class="hero-name">Lutfiana<br><em>Dahlan</em></h1>
+    <p class="hero-title">Structured, accurate, and outcome-focused — bridging healthcare operations, data management, and business research.</p>
+    <div class="hero-tags">
+      <span class="tag">Research & Analysis</span>
+      <span class="tag">Data Management</span>
+      <span class="tag">HR Coordination</span>
+      <span class="tag">Operations Support</span>
+    </div>
+    <a href="#contact" class="hero-cta">Let's Work Together <span class="hero-cta-arrow">→</span></a>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-photo-frame">
+      <div style="width:100%;height:100%;background:linear-gradient(135deg,#1a1a18 0%,#2a2820 100%);display:flex;align-items:center;justify-content:center;">
+        <div style="text-align:center;padding:3rem">
+          <div style="font-family:var(--serif);font-size:5rem;font-style:italic;color:rgba(200,169,110,0.3);line-height:1">L</div>
+          <div style="font-family:var(--serif);font-size:1.5rem;color:var(--accent);margin-top:1rem">Lutfiana</div>
+        </div>
+      </div>
+      <div class="hero-photo-overlay">
+        <div class="hero-stats-row">
+          <div class="hero-stat-item">
+            <div class="hero-stat">5+</div>
+            <div class="hero-stat-label">Years Ops</div>
+          </div>
+          <div class="hero-stat-item">
+            <div class="hero-stat">2K+</div>
+            <div class="hero-stat-label">Professionals</div>
+          </div>
+          <div class="hero-stat-item">
+            <div class="hero-stat">99%</div>
+            <div class="hero-stat-label">Data Accuracy</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="section-label">About Me</div>
+  <div class="about-grid">
+    <div>
+      <h2 class="section-heading">My career didn't follow a straight line.</h2>
+      <div class="about-text">
+        <p>I'm Lutfiana Dahlan — an Operations & Research Virtual Assistant based in Indonesia, with a background spanning healthcare operations, data management, and business research.</p>
+        <p>After graduating from a healthcare vocational school, I spent years working directly in clinical and homecare environments — which taught me discipline, attention to detail, and how to work under pressure.</p>
+        <p>I later transitioned into operations coordination at MHomecare Indonesia, where I spent 5 years managing training programs for over 2,000 healthcare professionals, streamlining scheduling systems, and resolving complex employee cases.</p>
+        <div class="about-highlight">"That experience shaped how I approach every task: structured, accurate, and outcome-focused."</div>
+        <p>In 2024, I expanded into freelance VA work — conducting full competitive market research for Cofluency (a language learning startup), and taking on data management roles where I consistently maintained 99% data accuracy.</p>
+      </div>
+    </div>
+    <div>
+      <div class="section-label" style="margin-bottom:2rem">Education</div>
+      <div class="edu-item">
+        <div class="edu-year">2023 — 2026</div>
+        <div class="edu-school">STIE Widya Wiwaha</div>
+        <div class="edu-degree">Bachelor's Degree in Management (ongoing)</div>
+      </div>
+      <div style="margin-top:3rem">
+        <div class="section-label" style="margin-bottom:2rem">Experience</div>
+        <div class="edu-item">
+          <div class="edu-year">Jan 2020 — Jun 2025</div>
+          <div class="edu-school">MHomecare Indonesia</div>
+          <div class="edu-degree">Human Capital Coordinator — Led training for 2,000+ healthcare professionals, improved workforce efficiency by 35%</div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-year">Nov 2024 — Sep 2025</div>
+          <div class="edu-school">Cofluency</div>
+          <div class="edu-degree">Virtual Assistant — Competitive market research across 20 language course providers</div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-year">Aug — Dec 2024</div>
+          <div class="edu-school">Tiara Distribusi Jakarta</div>
+          <div class="edu-degree">Data Management Specialist — Maintained 99% data accuracy across monthly reconciliation cycles</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" style="background:var(--black)">
+  <div class="section-label">Skills & Expertise</div>
+  <h2 class="section-heading">What I bring to<br><em style="font-family:var(--serif);font-style:italic;color:var(--accent)">every engagement</em></h2>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-icon">◈</div>
+      <h3 class="skill-title">Research & Analysis</h3>
+      <ul class="skill-items">
+        <li>Competitor mapping & market intelligence</li>
+        <li>Pricing strategy analysis</li>
+        <li>Gap analysis & strategic recommendations</li>
+        <li>Qualitative data analysis</li>
+      </ul>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">◈</div>
+      <h3 class="skill-title">Data Management</h3>
+      <ul class="skill-items">
+        <li>End-to-end data tracking & validation</li>
+        <li>Data cleaning & standardization</li>
+        <li>Performance dashboards & reporting</li>
+        <li>99% accuracy maintenance</li>
+      </ul>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">◈</div>
+      <h3 class="skill-title">Operations Support</h3>
+      <ul class="skill-items">
+        <li>Calendar & scheduling management</li>
+        <li>Travel coordination & planning</li>
+        <li>Workflow documentation</li>
+        <li>Administrative support</li>
+      </ul>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">◈</div>
+      <h3 class="skill-title">HR & People Coordination</h3>
+      <ul class="skill-items">
+        <li>Training program management</li>
+        <li>Performance scoring systems</li>
+        <li>Workforce availability mapping</li>
+        <li>Stakeholder engagement</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section class="tools-section" id="tools" style="padding:4rem">
+  <div class="section-label">Tools & Technology</div>
+  <div class="tools-grid">
+    <div class="tool-category">
+      <div class="tool-cat-label">Research</div>
+      <div class="tool-cat-items">Google Trends<br>SimilarWeb<br>Public Databases<br>Google Search</div>
+    </div>
+    <div class="tool-category">
+      <div class="tool-cat-label">Office & Data</div>
+      <div class="tool-cat-items">Google Sheets<br>Microsoft Excel<br>Google Docs<br>Google Forms</div>
+    </div>
+    <div class="tool-category">
+      <div class="tool-cat-label">Project & Ops</div>
+      <div class="tool-cat-items">Notion<br>Trello<br>Google Calendar<br>Slack · Zoom</div>
+    </div>
+    <div class="tool-category">
+      <div class="tool-cat-label">Design (Basic)</div>
+      <div class="tool-cat-items">Canva<br>Report formatting<br>Infographics<br>Portfolio design</div>
+    </div>
+    <div class="tool-category" style="border-right:none">
+      <div class="tool-cat-label">AI & Automation</div>
+      <div class="tool-cat-items">Claude (Anthropic)<br>Gemini<br>Research assistance<br>Workflow support</div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section class="projects" id="work">
+  <div class="section-label">Portfolio / My Work</div>
+  <h2 class="section-heading">Selected <em style="font-family:var(--serif);font-style:italic;color:var(--accent)">projects</em></h2>
+
+  <div class="project-list">
+
+    <div class="project-item">
+      <div class="project-num">01</div>
+      <div>
+        <h3 class="project-title">Market Research — Language Learning Startup</h3>
+        <p class="project-desc">Conducted a comprehensive competitive audit of 20 major language course providers in Indonesia for Cofluency. Delivered pricing strategy analysis, gap analysis, and strategic growth recommendations.</p>
+        <p class="project-outcome">→ Delivered competitor matrix enabling data-driven decisions on product positioning. Recommended Mid-Premium positioning (Rp 800K–1.5M/mo).</p>
+        <div class="project-tags">
+          <span class="ptag">Market Intelligence</span>
+          <span class="ptag">Pricing Strategy</span>
+          <span class="ptag">Gap Analysis</span>
+          <span class="ptag">Google Sheets</span>
+        </div>
+      </div>
+      <div class="project-arrow">→</div>
+    </div>
+
+    <div class="project-item">
+      <div class="project-num">02</div>
+      <div>
+        <h3 class="project-title">Operations & HR Data Management System</h3>
+        <p class="project-desc">Developed a comprehensive tracking system to monitor 2,500+ healthcare professionals across 20 cities. Implemented automated performance scoring and availability mapping for workforce optimization.</p>
+        <p class="project-outcome">→ Provided real-time visibility into workforce capacity — enabling faster HR and Operations decision-making. Improved efficiency by 35%.</p>
+        <div class="project-tags">
+          <span class="ptag">Advanced Excel</span>
+          <span class="ptag">HR Operations</span>
+          <span class="ptag">Data Visualization</span>
+          <span class="ptag">VLOOKUP / COUNTIF</span>
+        </div>
+      </div>
+      <div class="project-arrow">→</div>
+    </div>
+
+    <div class="project-item">
+      <div class="project-num">03</div>
+      <div>
+        <h3 class="project-title">Calendar Management & Scheduling</h3>
+        <p class="project-desc">Orchestrated a high-volume executive calendar across multiple time zones. Managed 20+ weekly appointments, resolving overlaps, protecting focus blocks, and coordinating 10+ stakeholders.</p>
+        <p class="project-outcome">→ 100% accuracy with zero scheduling conflicts. Protected 4 hours of deep-work focus blocks daily for the executive.</p>
+        <div class="project-tags">
+          <span class="ptag">Google Calendar</span>
+          <span class="ptag">Notion</span>
+          <span class="ptag">Gmail</span>
+          <span class="ptag">Executive Support</span>
+        </div>
+      </div>
+      <div class="project-arrow">→</div>
+    </div>
+
+    <div class="project-item">
+      <div class="project-num">04</div>
+      <div>
+        <h3 class="project-title">Python Data Cleaning — E-commerce Dataset</h3>
+        <p class="project-desc">Processed 10,000+ e-commerce records with inconsistent formatting and duplicate entries. Applied Python Pandas for deduplication, text standardization, and data integrity audit.</p>
+        <p class="project-outcome">→ Cleaned database of 96,096 unique records with 100% standardized geographical data — removed 3,345 redundant entries.</p>
+        <div class="project-tags">
+          <span class="ptag">Python</span>
+          <span class="ptag">Pandas</span>
+          <span class="ptag">Data Cleaning</span>
+          <span class="ptag">Automation</span>
+        </div>
+      </div>
+      <div class="project-arrow">→</div>
+    </div>
+
+    <div class="project-item">
+      <div class="project-num">05</div>
+      <div>
+        <h3 class="project-title">Travel Management — Executive Singapore Trip</h3>
+        <p class="project-desc">Full-service travel arrangement for a 3-day business trip to Singapore covering 4 meetings across 3 venues. Delivered flight, hotel, transport, itinerary, and briefing notes — within 24 hours of receiving the request.</p>
+        <p class="project-outcome">→ Zero day-of issues reported. Meeting preparation delivered 48 hours before departure.</p>
+        <div class="project-tags">
+          <span class="ptag">Notion</span>
+          <span class="ptag">Itinerary Planning</span>
+          <span class="ptag">Executive Support</span>
+          <span class="ptag">Logistics</span>
+        </div>
+      </div>
+      <div class="project-arrow">→</div>
+    </div>
+
+    <div class="project-item">
+      <div class="project-num">06</div>
+      <div>
+        <h3 class="project-title">Operations Research — Fishery Supply Chain Digitalization</h3>
+        <p class="project-desc">Researched traditional fishery supply chain inefficiencies in Pacitan, Indonesia. Conducted 11 stakeholder consultations, applied Business Model Canvas and Theory of Constraints frameworks.</p>
+        <p class="project-outcome">→ Developed a roadmap for a "Cooperative-mediated Digital Aggregator" model to restore price transparency and optimize regional supply chain efficiency.</p>
+        <div class="project-tags">
+          <span class="ptag">Stakeholder Management</span>
+          <span class="ptag">Business Model Canvas</span>
+          <span class="ptag">Strategic Planning</span>
+          <span class="ptag">BPR</span>
+        </div>
+      </div>
+      <div class="project-arrow">→</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="section-label" style="color:var(--accent-dark)">Get In Touch</div>
+  <h2 class="section-heading" style="color:var(--black);font-family:var(--serif)">Let's <em style="font-style:italic;color:var(--accent-dark)">connect</em></h2>
+  <p class="contact-sub">I'm eager to bring my expertise in operations and research to your team. Shall we schedule a brief call to explore how we can collaborate?</p>
+  <div class="contact-links">
+    <a href="mailto:lutfianadahlan884@gmail.com" class="contact-link">
+      <span class="contact-link-icon">✉</span>
+      lutfianadahlan884@gmail.com
+    </a>
+    <a href="tel:+6281234736487" class="contact-link">
+      <span class="contact-link-icon">✆</span>
+      +62 812-3473-6487
+    </a>
+    <a href="https://linkedin.com/in/lutfiana-dahlan-28336722a" target="_blank" class="contact-link">
+      <span class="contact-link-icon">in</span>
+      linkedin.com/in/lutfiana-dahlan
+    </a>
+    <a href="#" class="contact-link">
+      <span class="contact-link-icon">⊙</span>
+      Pacitan, Indonesia · Open to Remote
+    </a>
+  </div>
+  <a href="mailto:lutfianadahlan884@gmail.com" class="contact-cta">Send Me a Message →</a>
+</section>
+
+<footer>
+  <div class="footer-logo">Lutfiana Dahlan</div>
+  <div class="footer-copy">© 2025 Lutfiana Dahlan · Operations & Research VA · Indonesia</div>
+</footer>
+
+</body>
+</html>
